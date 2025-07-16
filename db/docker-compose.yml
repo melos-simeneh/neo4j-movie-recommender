@@ -1,0 +1,24 @@
+services:
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j
+    ports:
+      - "7474:7474" # HTTP browser
+      - "7687:7687" # Bolt protocol (drivers)
+    environment:
+      - NEO4J_AUTH=neo4j/Test@1234 # username/password
+      - NEO4J_PLUGINS=["apoc"]
+      - dbms.security.procedures.unrestricted=apoc.*
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/logs:/logs
+      - ./neo4j/import:/import
+      - ./neo4j/plugins:/plugins
+    restart: unless-stopped
+    # command: >
+    #   bash -c "
+    #     neo4j start &&
+    #     sleep 15 &&
+    #     cypher-shell -u neo4j -p Test@1234 -f /import/init.cypher &&
+    #     tail -f /dev/null
+    #   "

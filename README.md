@@ -12,6 +12,88 @@ A full-stack movie recommendation system powered by **Neo4j**, with a **FastAPI*
 
 - Neo4j schema constraints, indexes, and initial data loading
 
+## 🔍 Recommendation Techniques Explained
+
+This system supports four types of movie recommendations:
+
+### 1. 🎭 Collaborative Filtering
+
+- **Idea**: Recommends movies liked by users with similar tastes.
+
+- **Similarity Metric**: [Jaccard similarity](https://en.wikipedia.org/wiki/Jaccard_index) between users based on their rated movies.
+
+- **Scoring**:
+
+  - The more overlap between users' ratings, the stronger the similarity.
+  - Movies rated by similar users (but not yet rated by the target user) are recommended.
+
+    \[
+    \text{Jaccard Similarity} = \frac{|A \cap B|}{|A \cup B|}
+    \]
+
+      Where:  
+        - \(A\) = set of items rated by User 1  
+        - \(B\) = set of items rated by User 2  
+        - \(|A \cap B|\) = number of items both users rated (intersection)  
+        - \(|A \cup B|\) = total number of unique items rated by either user (union)
+
+- **Cypher Technique**: Uses intersection/union of movies between users with `apoc.coll.intersection` and `apoc.coll.union`.
+
+### 2. 🎨 Content-Based Filtering
+
+- **Idea**: Recommends movies that are similar to the ones the user has rated highly.
+
+- **Similarity Factors**:
+
+  - **Genres** (e.g., Action, Comedy)
+  - **Tags** (e.g., "time travel", "based on novel")
+
+- **Scoring Formula**:
+    \text{score} = (1.5 \times \text{#shared genres}) + (1 \times \text{#shared tags})
+
+- **Focus**: Personal preferences derived from user’s past high-rated movies (rating ≥ 4).
+
+### 3. ⏳ Context-Based Filtering (with Recency)
+
+- **Idea**: Weighs recent ratings more than old ones.
+
+- **Recency Weighting Formula:**
+\[
+  \text{recencyWeight} = e^{-\lambda \times \text{daysSinceRating}}
+  \]
+  - Recent ratings have more influence on recommendation outcomes.
+
+- **Additional Factors**:
+
+  - Recent average rating
+  - Number of users who rated the movie recently
+
+- **Goal**: Prioritize currently trending or actively watched movies.
+
+### 4. ⚡ Hybrid Recommendation
+
+- **Idea**: Combines collaborative, content-based, and context-aware  techniques.
+- **Combined Score**:
+
+  - Weighted mix of collaborative similarity, content match, and recency-adjusted scores.
+
+- **Features**:
+
+  - Identifies **top contributors** (users who influenced the recommendation)
+  - Tracks overlapping **genres** and **tags** to enhance explainability
+
+- **Best For**: Balanced, personalized recommendations blending **user preference**, **popularity**, and **recency**.
+
+### 🧠 Explainability
+
+- **Endpoint**:  `GET /explain/{user_id}/{movie_id}`
+
+- Provides a human-readable explanation of **why a movie was recommended**, including:
+
+  - Shared ratings with similar users
+  - Genre and tag overlaps
+  - Time since it was last rated
+
 ## 📁 Project Structure
 
 neo4j-movie-recommender
@@ -110,7 +192,10 @@ Using the `ml-latest-small version` of MovieLens, which includes:
 
 In addition, a `users.csv` file was generated using a Python script located at:
 
-`backend/utils/generate_users_csv.py`
+```bash
+backend/utils/generate_users_csv.py
+```
+
 This script generates mock user profiles for existing user IDs.
 
 ## 👨‍💻 Author

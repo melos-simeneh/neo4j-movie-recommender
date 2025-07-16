@@ -15,10 +15,10 @@ services:
       - ./neo4j/import:/import
       - ./neo4j/plugins:/plugins
     restart: unless-stopped
-    # command: >
-    #   bash -c "
-    #     neo4j start &&
-    #     sleep 15 &&
-    #     cypher-shell -u neo4j -p Test@1234 -f /import/init.cypher &&
-    #     tail -f /dev/null
-    #   "
+    command: >
+      bash -c "
+        neo4j start &&
+        sleep 15 &&
+        cypher-shell -u neo4j -p Test@1234 -f /import/init.cypher &&
+        tail -f /dev/null
+      "

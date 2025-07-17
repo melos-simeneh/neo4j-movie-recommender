@@ -7,10 +7,9 @@ import ExplanationModal from "../../components/ExplanationModal";
 import { getHybridRecs, getExplanation } from "../../api/recommendations";
 import { useAuth } from "../../context/AuthContext";
 
-const getRandomMovieImage = () => {
-  // Generate a random number for the image
-  const randomSeed = Math.floor(Math.random() * 1000);
-  return `https://source.unsplash.com/500x750/?movie,film,cinema&sig=${randomSeed}`;
+const getMovieImage = () => {
+  const randomId = Math.floor(Math.random() * 1000);
+  return `https://picsum.photos/id/${randomId}/500/750`;
 };
 
 export default function HybridRecs() {
@@ -92,7 +91,7 @@ export default function HybridRecs() {
               sharedTags: rec.top3SharedTags || [],
               totalSimilarUsersWhoRated: rec.totalContributingUsers || 0,
               topContributors: rec.top3ContributingUsers || [],
-              posterUrl: getRandomMovieImage(),
+              posterUrl: getMovieImage(),
             }}
             onExplain={() => handleExplain(rec.id)}
             showExplain={false}

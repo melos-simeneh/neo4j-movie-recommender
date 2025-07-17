@@ -5,10 +5,9 @@ import RecommendationCardSkeleton from "../../components/RecommendationCardSkele
 import { getCollaborativeRecs } from "../../api/recommendations";
 import { useAuth } from "../../context/AuthContext";
 
-const getPosterUrl = (tmdbId) => {
-  return tmdbId
-    ? `https://image.tmdb.org/t/p/w500/${tmdbId}`
-    : "/placeholder-poster.jpg";
+const getMovieImage = () => {
+  const randomId = Math.floor(Math.random() * 1000);
+  return `https://picsum.photos/id/${randomId}/500/750`;
 };
 
 export default function CollaborativeRecs() {
@@ -75,9 +74,9 @@ export default function CollaborativeRecs() {
                 name: r.full_name,
                 rating: r.rating,
               })),
-              posterUrl: getPosterUrl(rec.tmdbId),
+              posterUrl: getMovieImage(),
             }}
-            showExplain={false} // Disable explain button for collaborative
+            showExplain={false}
           />
         ))}
       </div>

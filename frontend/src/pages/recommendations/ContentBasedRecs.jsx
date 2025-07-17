@@ -5,10 +5,9 @@ import RecommendationCardSkeleton from "../../components/RecommendationCardSkele
 import { getContentBasedRecs } from "../../api/recommendations";
 import { useAuth } from "../../context/AuthContext";
 
-const getPosterUrl = (tmdbId) => {
-  return tmdbId
-    ? `https://image.tmdb.org/t/p/w500/${tmdbId}`
-    : "/placeholder-poster.jpg";
+const getMovieImage = () => {
+  const randomId = Math.floor(Math.random() * 1000);
+  return `https://picsum.photos/id/${randomId}/500/750`;
 };
 
 export default function ContentBasedRecs() {
@@ -73,7 +72,7 @@ export default function ContentBasedRecs() {
               sharedTags: rec.sharedTags,
               genreScore: rec.genreScore,
               tagScore: rec.tagScore,
-              posterUrl: getPosterUrl(rec.tmdbId),
+              posterUrl: getMovieImage(rec.tmdbId),
             }}
             showExplain={false} // Disable explain button for content-based
           />

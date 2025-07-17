@@ -124,7 +124,7 @@ This system supports four types of movie recommendations:
 
 ### 🏷 User → Tag + Movie → Tag
 
-![Tagged](screenshots/Tagged.png)
+![Tagged](screenshots/tagged.png)
 
 ## 🧬 Data Model (Relationships Overview)
 

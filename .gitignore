@@ -1,5 +1,4 @@
-__pycache__/*
+**__pycache__
 db/neo4j*
 .env*
 venv*
-frontend*

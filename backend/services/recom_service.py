@@ -15,14 +15,36 @@ async def get_all_users(page: int = 1, page_size: int = 10):
 
 async def get_all_movies(page: int = 1, page_size: int = 10):
     skip = (page - 1) * page_size
-    query = """
+
+    # Query to fetch paginated movie data
+    movie_query = """
     MATCH (m:Movie)
-    RETURN m.movieId AS movieId, m.title AS title, m.genres AS genres
+    RETURN 
+        m.movieId AS movieId,
+        m.title AS title,
+        m.genres AS genres,
+        m.imdbId AS imdbId,
+        m.tmdbId AS tmdbId
     ORDER BY m.movieId ASC
     SKIP $skip
     LIMIT $limit
     """
-    return await query_neo4j(query, {"skip": skip, "limit": page_size})
+
+    # Query to count total movies
+    count_query = "MATCH (m:Movie) RETURN count(m) AS total"
+
+    # Run both queries
+    movies = await query_neo4j(movie_query, {"skip": skip, "limit": page_size})
+    total_result = await query_neo4j(count_query)
+
+    total = total_result[0]["total"] if total_result else 0
+
+    return {
+        "movies": movies,
+        "total": total,
+        "page": page,
+        "page_size": page_size
+    }
 
 
 async def collaborative_recommendation(user_id: int):

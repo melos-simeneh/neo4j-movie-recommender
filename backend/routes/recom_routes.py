@@ -11,7 +11,7 @@ async def list_users(
 ):
     return await recom_service.get_all_users(page, page_size)
 
-@router.get("/movies", response_model=List[Dict])
+@router.get("/movies")
 async def list_movies(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=100)

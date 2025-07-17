@@ -27,16 +27,14 @@ This system supports four types of movie recommendations:
   - The more overlap between users' ratings, the stronger the similarity.
   - Movies rated by similar users (but not yet rated by the target user) are recommended.
 
-    \[
-    \text{Jaccard Similarity} = \frac{|A \cap B|}{|A \cup B|}
-    \]
+    Jaccard Similarity = |A ∩ B| / |A ∪ B|
 
     Where:
 
-    - \(A\) = set of items rated by User 1
-    - \(B\) = set of items rated by User 2
-    - \(|A \cap B|\) = number of items both users rated (intersection)
-    - \(|A \cup B|\) = total number of unique items rated by either user (union)
+    - A = set of items rated by User 1
+    - B = set of items rated by User 2
+    - |A ∩ B| = number of items both users rated (intersection)
+    - |A ∪ B| = total number of unique items rated by either user (union)
 
 - **Cypher Technique**: Uses intersection/union of movies between users with `apoc.coll.intersection` and `apoc.coll.union`.
 
@@ -50,7 +48,7 @@ This system supports four types of movie recommendations:
   - **Tags** (e.g., "time travel", "based on novel")
 
 - **Scoring Formula**:
-  \text{score} = (1.5 \times \text{#shared genres}) + (1 \times \text{#shared tags})
+  score = (1.5 × #shared genres) + (1 × #shared tags)
 
 - **Focus**: Personal preferences derived from user’s past high-rated movies (rating ≥ 4).
 
@@ -59,9 +57,7 @@ This system supports four types of movie recommendations:
 - **Idea**: Weighs recent ratings more than old ones.
 
 - **Recency Weighting Formula:**
-  \[
-  \text{recencyWeight} = e^{-\lambda \times \text{daysSinceRating}}
-  \]
+  `recencyWeight = exp(-λ × daysSinceRating)`
 
   - Recent ratings have more influence on recommendation outcomes.
 
@@ -140,12 +136,14 @@ This system supports four types of movie recommendations:
 
 ## 📁 Project Structure
 
+```
 neo4j-movie-recommender
 ├── backend/ # FastAPI backend for recommendation APIs
 ├── frontend/ # React frontend UI
 ├── dataset/ # MovieLens dataset (movies.csv, ratings.csv etc.)
 ├── db/ # Neo4j Docker Compose config and init scripts
 └── README.md # Project overview
+```
 
 ## 🚀 Tech Stack
 

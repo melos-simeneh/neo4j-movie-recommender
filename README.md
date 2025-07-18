@@ -31,7 +31,7 @@ This system supports four types of movie recommendations:
   - The more overlap between users' ratings, the stronger the similarity.
   - Movies rated by similar users (but not yet rated by the target user) are recommended.
 
-    Jaccard Similarity = |A ∩ B| / |A ∪ B|
+    `Jaccard Similarity = |A ∩ B| / |A ∪ B|`
 
     Where:
 
@@ -52,7 +52,7 @@ This system supports four types of movie recommendations:
   - **Tags** (e.g., "time travel", "based on novel")
 
 - **Scoring Formula**:
-  score = (1.5 × #shared genres) + (1 × #shared tags)
+  `score = (1.5 × #shared genres) + (1 × #shared tags)`
 
 - **Focus**: Personal preferences derived from user’s past high-rated movies (rating ≥ 4).
 

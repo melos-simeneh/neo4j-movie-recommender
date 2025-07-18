@@ -2,6 +2,10 @@
 
 A full-stack movie recommendation system powered by **Neo4j**, with a **FastAPI** backend and a **React** frontend. It uses the [MovieLens (ml-latest-small)](https://grouplens.org/datasets/movielens/latest/) dataset to deliver personalized recommendations using **collaborative**, **content-based**, **context-aware**, and **hybrid** filtering techniques.
 
+## 🎬 Demo Video
+
+[![Watch Demo](https://img.shields.io/badge/Demo-Video-red?logo=youtube)](https://www.loom.com/share/1b8ef4b0fdb34317b24b6cd8804a790e?jobid=107199600&send_date=7/16/2025&subid=1674670008&utm_campaign=EML-19771&utm_medium=email&utm_source=sfmc)
+
 ## 🧠 Features
 
 - Four recommendation strategies (collaborative, content, context, hybrid)
